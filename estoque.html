@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1e293b">
+    
+    <title>Estoque - Porto Sul Imóveis</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 400: '#FACC15', 500: '#EAB308', 600: '#CA8A04' },
+                        dark: { 800: '#1e293b', 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .tap-highlight-transparent { -webkit-tap-highlight-color: transparent; }
+        
+        .animate-slide-up { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .smooth-transition { transition: transform 0.3s ease-out; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans h-screen flex flex-col overflow-hidden text-gray-800">
+
+    <aside class="hidden md:flex w-64 bg-dark-900 text-white flex-col h-full fixed left-0 top-0 z-20 border-r border-gray-800">
+        <div class="h-20 flex items-center justify-center border-b border-gray-800">
+            <span class="text-xl font-serif font-bold tracking-wider flex items-center text-gold-500">
+                <i class="fas fa-building mr-2"></i>PORTO SUL
+            </span>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2 flex flex-col">
+            <a href="admin.html" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-gray-800 px-4 py-3 rounded-xl transition"><i class="fas fa-chart-line w-6 text-center"></i><span class="font-medium">Dashboard</span></a>
+            <a href="leads.html" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-gray-800 px-4 py-3 rounded-xl transition"><i class="fas fa-users w-6 text-center"></i><span class="font-medium">CRM & Leads</span></a>
+            
+            <a href="estoque.html" class="flex items-center space-x-3 bg-gradient-to-r from-gold-600 to-gold-500 text-white px-4 py-3 rounded-xl shadow-lg transition transform hover:scale-105"><i class="fas fa-home w-6 text-center"></i><span class="font-medium">Imóveis</span></a>
+            
+            <div class="flex-1"></div>
+
+            <a href="index.html" target="_blank" class="flex items-center space-x-3 text-gray-400 hover:text-gold-400 hover:bg-gray-800 px-4 py-3 rounded-xl transition">
+                <i class="fas fa-globe w-6 text-center"></i>
+                <span class="font-medium">Ver Site</span>
+            </a>
+            
+             <a href="index.html" class="flex items-center space-x-3 text-gray-400 hover:text-red-400 hover:bg-gray-800 px-4 py-3 rounded-xl transition">
+                <i class="fas fa-sign-out-alt w-6 text-center"></i>
+                <span class="font-medium">Sair</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-full md:ml-64 relative bg-gray-50">
+        
+        <header class="bg-dark-900 h-16 shadow-lg flex items-center justify-between px-5 sticky top-0 z-10 md:hidden">
+            <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center text-dark-900 font-bold mr-3 border border-gold-400">PS</div>
+                <div>
+                    <h2 class="text-sm font-bold text-white">Carteira</h2>
+                    <p class="text-[10px] text-gold-500 font-bold flex items-center">42 Imóveis</p>
+                </div>
+            </div>
+            <button onclick="toggleModal('modalNovoAnuncio')" class="bg-gold-500 text-dark-900 w-8 h-8 rounded-full flex items-center justify-center shadow-md active:scale-90 transition">
+                <i class="fas fa-plus"></i>
+            </button>
+        </header>
+
+        <header class="hidden md:flex bg-white h-20 shadow-sm items-center justify-between px-8 border-b border-gray-200">
+            <h2 class="text-2xl font-serif font-bold text-dark-900">Carteira de Imóveis</h2>
+            <button onclick="toggleModal('modalNovoAnuncio')" class="bg-dark-900 text-white px-6 py-2.5 rounded-lg font-bold shadow-md hover:bg-dark-800 transition flex items-center transform hover:-translate-y-0.5 border border-gold-500/30">
+                <i class="fas fa-plus mr-2 text-gold-500"></i> Cadastrar Imóvel
+            </button>
+        </header>
+
+        <div class="flex-1 overflow-y-auto no-scrollbar p-4 pb-24 md:p-8 md:pb-8">
+            
+            <div class="flex gap-2 overflow-x-auto no-scrollbar pb-4">
+                <button class="bg-dark-900 text-gold-500 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-md border border-gold-500/50">Todos (42)</button>
+                <button class="bg-white border border-gray-300 text-gray-600 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap hover:border-gold-500 hover:text-gold-600 transition">Disponíveis (35)</button>
+                <button class="bg-white border border-gray-300 text-gray-600 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap hover:border-blue-500 hover:text-blue-600 transition">Locados (5)</button>
+                <button class="bg-white border border-gray-300 text-gray-600 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap hover:border-green-500 hover:text-green-600 transition">Vendidos (2)</button>
+            </div>
+
+            <div class="space-y-4">
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col md:flex-row gap-4 animate-fade-in hover:shadow-md transition">
+                    <div class="w-full md:w-56 h-36 bg-gray-200 rounded-lg relative overflow-hidden flex-shrink-0 group">
+                        <img src="https://images.unsplash.com/photo-1600596542815-6ad4c727dd2d?q=80&w=400" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <span class="absolute top-2 left-2 bg-gold-500 text-dark-900 text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">DISPONÍVEL</span>
+                        <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-2">
+                            <p class="text-white text-xs font-bold"><i class="fas fa-camera mr-1"></i> 15 fotos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-dark-900 text-lg">Residencial Diamond Hill</h3>
+                                    <p class="text-xs text-gray-500 mb-1"><i class="fas fa-map-marker-alt mr-1"></i> Jd. Europa • Apto 142</p>
+                                    <div class="flex gap-3 text-xs text-gray-600 mt-2">
+                                        <span><i class="fas fa-bed mr-1"></i> 3 Quartos</span>
+                                        <span><i class="fas fa-shower mr-1"></i> 2 Banheiros</span>
+                                        <span><i class="fas fa-ruler-combined mr-1"></i> 120m²</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xl font-serif font-black text-dark-900">R$ 1.250.000</p>
+                                    <p class="text-xs text-gray-400">Cond: R$ 850</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap gap-2 items-center pt-3 border-t border-gray-100">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase mr-1">Divulgação:</span>
+                            <span class="bg-gray-100 text-gray-600 border border-gray-200 text-[10px] px-2 py-0.5 rounded flex items-center font-bold" title="Site Oficial"><i class="fas fa-globe mr-1"></i> Site</span>
+                            <span class="bg-blue-50 text-blue-700 border border-blue-200 text-[10px] px-2 py-0.5 rounded flex items-center font-bold" title="Zap Imóveis"><i class="fas fa-bolt mr-1"></i> ZAP</span>
+                            <span class="bg-purple-50 text-purple-700 border border-purple-200 text-[10px] px-2 py-0.5 rounded flex items-center font-bold" title="VivaReal"><i class="fas fa-home mr-1"></i> VivaReal</span>
+                        </div>
+                    </div>
+
+                    <div class="flex md:flex-col justify-end gap-2 border-t md:border-t-0 md:border-l border-gray-100 pt-3 md:pt-0 md:pl-4">
+                        <button class="flex-1 md:flex-none bg-dark-900 text-white hover:bg-dark-800 px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center">
+                            <i class="fas fa-pen mr-2 text-gold-500"></i> Editar
+                        </button>
+                        <button class="flex-1 md:flex-none bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center">
+                            <i class="fas fa-share-alt mr-2"></i> Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col md:flex-row gap-4 animate-fade-in opacity-90">
+                    <div class="w-full md:w-56 h-36 bg-gray-200 rounded-lg relative overflow-hidden flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1484154218962-a1c002085d2f?q=80&w=400" class="w-full h-full object-cover grayscale">
+                        <span class="absolute top-2 left-2 bg-gray-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">RASCUNHO</span>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-gray-500 text-lg">Casa Comercial Centro</h3>
+                                    <p class="text-xs text-gray-400 mb-1"><i class="fas fa-map-marker-alt mr-1"></i> Av. Carlos Gomes</p>
+                                    <div class="flex gap-3 text-xs text-gray-400 mt-2">
+                                        <span><i class="fas fa-vector-square mr-1"></i> 300m²</span>
+                                        <span><i class="fas fa-parking mr-1"></i> 4 Vagas</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xl font-serif font-black text-gray-400">R$ 4.500 <span class="text-xs font-sans font-normal">/mês</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <p class="text-xs text-red-500 font-bold"><i class="fas fa-exclamation-circle mr-1"></i> Faltam fotos profissionais</p>
+                        </div>
+                    </div>
+                    <div class="flex md:flex-col justify-end gap-2 border-t md:border-t-0 md:border-l border-gray-100 pt-3 md:pt-0 md:pl-4">
+                        <button class="flex-1 md:flex-none bg-gold-500 text-dark-900 hover:bg-gold-600 px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center">
+                            <i class="fas fa-camera mr-2"></i> Fotos
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <nav class="md:hidden fixed bottom-0 w-full bg-dark-900 border-t border-gray-800 flex justify-around items-end pb-3 pt-2 z-40 shadow-2xl">
+        <a href="admin.html" class="flex flex-col items-center w-16 text-gray-400 hover:text-gold-500 tap-highlight-transparent transition">
+            <i class="fas fa-home text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">Início</span>
+        </a>
+        <a href="leads.html" class="flex flex-col items-center w-16 text-gray-400 hover:text-gold-500 tap-highlight-transparent transition">
+            <i class="fas fa-users text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">Leads</span>
+        </a>
+        <div class="relative -top-6">
+            <button onclick="toggleModal('modalNovoAnuncio')" class="w-14 h-14 bg-gold-500 rounded-full shadow-lg shadow-gold-500/20 flex items-center justify-center text-dark-900 text-2xl transform transition active:scale-90 tap-highlight-transparent border-4 border-dark-900">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <a href="#" class="flex flex-col items-center w-16 text-gold-500 tap-highlight-transparent">
+            <i class="fas fa-building text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">Imóveis</span>
+        </a>
+        <button onclick="toggleMenu()" class="flex flex-col items-center w-16 text-gray-400 hover:text-gold-500 tap-highlight-transparent">
+            <i class="fas fa-bars text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">Menu</span>
+        </button>
+    </nav>
+
+    <div id="mobileMenuSheet" class="hidden fixed inset-0 z-50">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onclick="toggleMenu()"></div>
+        <div id="menuContent" class="absolute bottom-0 w-full bg-white rounded-t-3xl shadow-2xl animate-slide-up flex flex-col max-h-[80vh]">
+            <div id="menuHandle" class="w-full flex justify-center pt-4 pb-2 cursor-grab touch-none bg-white rounded-t-3xl"><div class="w-12 h-1.5 bg-gray-300 rounded-full"></div></div>
+            <div class="px-6 py-4 flex items-center border-b border-gray-100">
+                <div class="w-12 h-12 rounded-full bg-dark-900 text-gold-500 flex items-center justify-center font-bold text-xl border-2 border-gold-500">PS</div>
+                <div class="ml-3"><h3 class="font-bold text-dark-900 text-lg">Porto Sul</h3><p class="text-xs text-gray-500">Sistema Administrativo</p></div>
+            </div>
+            <div class="p-4 space-y-1 overflow-y-auto">
+                <a href="index.html" target="_blank" class="flex items-center p-4 hover:bg-gray-50 rounded-xl transition"><div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mr-4"><i class="fas fa-globe"></i></div><div class="flex-1"><h4 class="font-bold text-gray-800 text-sm">Ver Site</h4><p class="text-xs text-gray-400">Visualizar loja</p></div></a>
+                <a href="#" class="flex items-center p-4 hover:bg-gray-50 rounded-xl transition"><div class="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center mr-4"><i class="fas fa-users-cog"></i></div><div class="flex-1"><h4 class="font-bold text-gray-800 text-sm">Gerenciar Equipe</h4><p class="text-xs text-gray-400">Corretores</p></div></a>
+                <a href="#" class="flex items-center p-4 hover:bg-gray-50 rounded-xl transition"><div class="w-10 h-10 rounded-full bg-gold-50 text-gold-600 flex items-center justify-center mr-4"><i class="fas fa-network-wired"></i></div><div class="flex-1"><h4 class="font-bold text-gray-800 text-sm">Integrações</h4><p class="text-xs text-gray-400">Zap, VivaReal, OLX</p></div></a>
+            </div>
+            <div class="p-6 border-t border-gray-100"><a href="index.html" class="flex items-center justify-center w-full py-3 text-red-500 font-bold bg-red-50 rounded-xl hover:bg-red-100 transition"><i class="fas fa-sign-out-alt mr-2"></i> Sair do Sistema</a></div>
+        </div>
+    </div>
+
+    <div id="modalNovoAnuncio" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end md:items-center justify-center">
+        <div class="absolute inset-0" onclick="toggleModal('modalNovoAnuncio')"></div>
+        <div id="anuncioContent" class="bg-white w-full md:w-auto md:max-w-4xl md:rounded-2xl rounded-t-3xl shadow-2xl relative z-10 max-h-[90vh] flex flex-col animate-slide-up">
+            <div id="anuncioHandle" class="md:hidden w-full flex justify-center pt-4 pb-2 cursor-grab touch-none bg-white rounded-t-3xl"><div class="w-12 h-1.5 bg-gray-300 rounded-full"></div></div>
+            <div class="flex justify-between items-center px-6 py-4 border-b border-gray-100">
+                <h3 class="text-xl font-bold text-dark-900 flex items-center"><i class="fas fa-home text-gold-500 mr-2"></i> Novo Imóvel</h3>
+                <button onclick="toggleModal('modalNovoAnuncio')" class="hidden md:block text-gray-400 hover:bg-gray-100 rounded-full p-2"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto md:grid md:grid-cols-3 md:gap-8 space-y-6 md:space-y-0">
+                <div class="md:col-span-2 space-y-5">
+                    <div class="border-2 border-dashed border-gray-300 bg-gray-50 rounded-xl p-6 text-center active:bg-gold-50 transition"><i class="fas fa-camera text-3xl text-gray-400 mb-2"></i><p class="text-sm font-bold text-gray-600">Adicionar Fotos</p></div>
+                    <div class="space-y-4">
+                        <div><label class="text-xs font-bold text-gray-500 uppercase">Título do Anúncio</label><input type="text" class="w-full rounded-lg border-gray-300 focus:ring-gold-500 focus:border-gold-500 py-3 font-medium" placeholder="Ex: Apto 3 Quartos Centro..."></div>
+                        <div class="grid grid-cols-2 gap-4"><div><label class="text-xs font-bold text-gray-500 uppercase">Valor (R$)</label><input type="text" class="w-full rounded-lg border-gray-300 py-3 font-bold text-dark-900" placeholder="0,00"></div><div><label class="text-xs font-bold text-gray-500 uppercase">Tipo</label><select class="w-full rounded-lg border-gray-300 py-3"><option>🏠 Casa</option><option>🏢 Apartamento</option><option>🌲 Terreno</option></select></div></div>
+                    </div>
+                </div>
+                <div class="md:col-span-1">
+                    <div class="bg-gray-50 rounded-xl p-4 border border-gray-200 h-full flex flex-col">
+                        <h4 class="text-sm font-bold text-dark-900 mb-3 flex items-center"><i class="fas fa-share-alt mr-2 text-gold-500"></i> Publicar em:</h4>
+                        <div class="space-y-2 overflow-y-auto max-h-[250px] pr-1 no-scrollbar">
+                            <label class="flex items-center bg-white p-3 rounded-lg border-2 border-gold-500 shadow-sm opacity-80"><input type="checkbox" checked disabled class="text-gold-600 rounded focus:ring-gold-500"><span class="ml-2 text-xs font-bold text-gray-700">Site Porto Sul</span></label>
+                            <label class="flex items-center bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:border-blue-400 transition"><input type="checkbox" checked class="text-blue-600 rounded focus:ring-blue-500"><i class="fas fa-bolt text-blue-600 ml-2 mr-1"></i><span class="text-xs font-bold text-gray-700">Zap Imóveis</span></label>
+                            <label class="flex items-center bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:border-purple-400 transition"><input type="checkbox" checked class="text-purple-600 rounded focus:ring-purple-500"><i class="fas fa-home text-purple-600 ml-2 mr-1"></i><span class="text-xs font-bold text-gray-700">VivaReal</span></label>
+                            <label class="flex items-center bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:border-orange-400 transition"><input type="checkbox" class="text-orange-500 rounded focus:ring-orange-500"><i class="fas fa-store text-orange-500 ml-2 mr-1"></i><span class="text-xs font-bold text-gray-700">OLX</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-gray-100 flex space-x-3 bg-white md:rounded-b-2xl">
+                <button onclick="toggleModal('modalNovoAnuncio')" class="flex-1 py-3 text-gray-500 font-bold bg-gray-100 rounded-lg md:flex-none md:px-6">Cancelar</button>
+                <button class="flex-1 py-3 bg-dark-900 text-white font-bold rounded-lg shadow-lg hover:bg-dark-800 transition border border-gold-500/50">Publicar Imóvel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            const content = id === 'modalNovoAnuncio' ? document.getElementById('anuncioContent') : null;
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden'); modal.classList.add('flex'); document.body.style.overflow = 'hidden';
+                if(content) { content.style.transform = ''; content.classList.remove('smooth-transition'); }
+            } else { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }
+        }
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenuSheet'); const content = document.getElementById('menuContent');
+            if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); document.body.style.overflow = 'hidden'; content.style.transform = ''; content.classList.remove('smooth-transition'); } 
+            else { menu.classList.add('hidden'); document.body.style.overflow = ''; }
+        }
+        function setupDraggable(handleId, contentId, closeCallback) {
+            const handle = document.getElementById(handleId); const content = document.getElementById(contentId);
+            let startY = 0; let currentTranslate = 0; let isDragging = false;
+            handle.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; isDragging = true; content.classList.remove('smooth-transition'); }, { passive: false });
+            handle.addEventListener('touchmove', (e) => { if (!isDragging) return; const currentY = e.touches[0].clientY; const diff = currentY - startY; if (diff > 0) { e.preventDefault(); currentTranslate = diff; content.style.transform = `translateY(${diff}px)`; } }, { passive: false });
+            handle.addEventListener('touchend', () => { isDragging = false; content.classList.add('smooth-transition'); if (currentTranslate > 100) { content.style.transform = `translateY(100%)`; setTimeout(closeCallback, 200); } else { content.style.transform = ''; } currentTranslate = 0; });
+        }
+        if ('ontouchstart' in window) {
+            setupDraggable('menuHandle', 'menuContent', toggleMenu);
+            setupDraggable('anuncioHandle', 'anuncioContent', () => toggleModal('modalNovoAnuncio'));
+        }
+    </script>
+</body>
+</html>
