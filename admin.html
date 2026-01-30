@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0f172a"> <title>Porto Sul - Sistema de Gestão</title>
+    <meta name="theme-color" content="#030712"> <title>Porto Sul - Gestão Premium</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         gold: { 400: '#FACC15', 500: '#EAB308', 600: '#CA8A04' },
-                        dark: { 800: '#1e293b', 900: '#0f172a' }
+                        // Usaremos a paleta Gray do Tailwind para os tons de cinza escuro
+                        // gray-950 (Fundo Principal), gray-900 (Cards/Sidebar), gray-800 (Bordas/Hovers)
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'], // Fonte mais elegante se tivesse importado
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px -3px rgba(234, 179, 8, 0.3)', // Sombra dourada suave
+                        'dark-sm': '0 1px 2px 0 rgba(0, 0, 0, 0.3)',
                     }
                 }
             }
@@ -32,21 +37,21 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .tap-highlight-transparent { -webkit-tap-highlight-color: transparent; }
         
-        /* Status Dots */
+        /* Status Dots adaptados para dark */
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
-        .bg-danger { background-color: #ef4444; }
-        .bg-warning { background-color: #f59e0b; }
-        .bg-success { background-color: #22c55e; }
+        .bg-danger { background-color: #ef4444; box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
+        .bg-warning { background-color: #f59e0b; box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
+        .bg-success { background-color: #22c55e; box-shadow: 0 0 8px rgba(34, 197, 94, 0.4); }
         
-        /* Animações */
-        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* Ajuste sutil na animação */
+        .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-gray-50 font-sans h-screen flex flex-col overflow-hidden text-gray-800">
+<body class="bg-gray-950 font-sans h-screen flex flex-col overflow-hidden text-gray-100">
 
-    <aside class="hidden md:flex w-64 bg-dark-900 text-gray-300 flex-col h-full fixed left-0 top-0 z-20 border-r border-gray-800 overflow-y-auto no-scrollbar">
-        <div class="h-20 flex items-center justify-center border-b border-gray-800 shrink-0">
+    <aside class="hidden md:flex w-64 bg-gray-900 flex-col h-full fixed left-0 top-0 z-20 border-r border-gray-800/50 overflow-y-auto no-scrollbar">
+        <div class="h-20 flex items-center justify-center border-b border-gray-800/50 shrink-0">
             <span class="text-xl font-bold tracking-widest flex items-center text-white">
                 <i class="fas fa-building text-gold-500 mr-2"></i>PORTO SUL
             </span>
@@ -54,184 +59,163 @@
         
         <nav class="flex-1 px-4 py-6 space-y-1">
             <p class="text-[10px] uppercase text-gray-500 font-bold mb-2 mt-1 tracking-wider">Gestão</p>
-            <a href="admin.html" class="flex items-center space-x-3 bg-gold-500 text-dark-900 px-4 py-3 rounded-xl shadow-lg transition hover:bg-gold-400">
+            <a href="admin.html" class="flex items-center space-x-3 bg-gold-500 text-gray-950 px-4 py-3 rounded-xl shadow-glow transition hover:bg-gold-400">
                 <i class="fas fa-chart-pie w-5 text-center"></i><span class="font-bold text-sm">Dashboard</span>
             </a>
             
             <p class="text-[10px] uppercase text-gray-500 font-bold mb-2 mt-6 tracking-wider">Comercial</p>
-            <a href="leads.html" class="flex items-center space-x-3 hover:text-white hover:bg-gray-800 px-4 py-2.5 rounded-xl transition">
-                <i class="fas fa-users w-5 text-center text-gold-500"></i><span class="font-medium text-sm">Leads & CRM</span>
+            <a href="leads.html" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-gray-800/50 px-4 py-2.5 rounded-xl transition group">
+                <i class="fas fa-users w-5 text-center group-hover:text-gold-500 transition"></i><span class="font-medium text-sm">Leads & CRM</span>
             </a>
-            <a href="estoque.html" class="flex items-center space-x-3 hover:text-white hover:bg-gray-800 px-4 py-2.5 rounded-xl transition">
-                <i class="fas fa-home w-5 text-center text-gold-500"></i><span class="font-medium text-sm">Carteira Imóveis</span>
+            <a href="estoque.html" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-gray-800/50 px-4 py-2.5 rounded-xl transition group">
+                <i class="fas fa-home w-5 text-center group-hover:text-gold-500 transition"></i><span class="font-medium text-sm">Carteira Imóveis</span>
             </a>
-            <a href="#" class="flex items-center space-x-3 hover:text-white hover:bg-gray-800 px-4 py-2.5 rounded-xl transition group">
-                <i class="fas fa-radar w-5 text-center text-gold-500 group-hover:animate-pulse"></i>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-gray-800/50 px-4 py-2.5 rounded-xl transition group">
+                <i class="fas fa-radar w-5 text-center group-hover:text-gold-500 transition"></i>
                 <span class="font-medium text-sm">Radar (Match)</span>
-                <span class="ml-auto bg-blue-600 text-white text-[9px] px-1.5 py-0.5 rounded-full">Novo</span>
-            </a>
-            <a href="#" class="flex items-center space-x-3 hover:text-white hover:bg-gray-800 px-4 py-2.5 rounded-xl transition">
-                <i class="fas fa-chart-line w-5 text-center text-gold-500"></i><span class="font-medium text-sm">Estudo Mercado</span>
             </a>
 
             <p class="text-[10px] uppercase text-gray-500 font-bold mb-2 mt-6 tracking-wider">Locação & Adm</p>
-            <a href="#" class="flex items-center space-x-3 hover:text-white hover:bg-gray-800 px-4 py-2.5 rounded-xl transition">
-                <i class="fas fa-key w-5 text-center text-gold-500"></i><span class="font-medium text-sm">Aluguéis</span>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-gray-800/50 px-4 py-2.5 rounded-xl transition group">
+                <i class="fas fa-key w-5 text-center group-hover:text-gold-500 transition"></i><span class="font-medium text-sm">Aluguéis</span>
             </a>
-            <a href="#" class="flex items-center space-x-3 hover:text-white hover:bg-gray-800 px-4 py-2.5 rounded-xl transition">
-                <i class="fas fa-file-invoice-dollar w-5 text-center text-gold-500"></i><span class="font-medium text-sm">IPTU & Taxas</span>
-            </a>
-            <a href="#" class="flex items-center space-x-3 hover:text-white hover:bg-gray-800 px-4 py-2.5 rounded-xl transition">
-                <i class="fas fa-tools w-5 text-center text-gold-500"></i><span class="font-medium text-sm">Manutenção/Reparos</span>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-gray-800/50 px-4 py-2.5 rounded-xl transition group">
+                <i class="fas fa-tools w-5 text-center group-hover:text-gold-500 transition"></i><span class="font-medium text-sm">Manutenção</span>
             </a>
 
             <p class="text-[10px] uppercase text-gray-500 font-bold mb-2 mt-6 tracking-wider">Jurídico</p>
-            <a href="#" class="flex items-center space-x-3 hover:text-white hover:bg-gray-800 px-4 py-2.5 rounded-xl transition">
-                <i class="fas fa-file-contract w-5 text-center text-gold-500"></i><span class="font-medium text-sm">Contratos</span>
-            </a>
-            <a href="#" class="flex items-center space-x-3 hover:text-white hover:bg-gray-800 px-4 py-2.5 rounded-xl transition">
-                <i class="fas fa-stamp w-5 text-center text-gold-500"></i><span class="font-medium text-sm">Despachante</span>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-gray-800/50 px-4 py-2.5 rounded-xl transition group">
+                <i class="fas fa-file-contract w-5 text-center group-hover:text-gold-500 transition"></i><span class="font-medium text-sm">Contratos</span>
             </a>
         </nav>
         
-        <div class="px-4 py-6 border-t border-gray-800 mt-auto">
-            <a href="index.html" target="_blank" class="flex items-center space-x-3 text-gray-400 hover:text-white transition mb-3">
-                <i class="fas fa-globe w-5 text-center"></i><span class="font-medium text-sm">Ver Site</span>
-            </a>
+        <div class="px-4 py-6 border-t border-gray-800/50 mt-auto">
             <a href="index.html" class="flex items-center space-x-3 text-gray-400 hover:text-red-400 transition">
                 <i class="fas fa-sign-out-alt w-5 text-center"></i><span class="font-medium text-sm">Sair</span>
             </a>
         </div>
     </aside>
 
-    <main class="flex-1 flex flex-col h-full md:ml-64 relative bg-gray-50">
+    <main class="flex-1 flex flex-col h-full md:ml-64 relative bg-gray-950">
         
-        <header class="bg-dark-900 h-16 shadow-lg flex items-center justify-between px-5 sticky top-0 z-10 md:hidden">
+        <header class="bg-gray-900/80 backdrop-blur-md h-16 shadow-dark-sm flex items-center justify-between px-5 sticky top-0 z-10 md:hidden border-b border-gray-800/50">
             <div class="flex items-center">
-                <div class="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center text-dark-900 font-bold mr-3 border border-gold-400">PS</div>
+                <div class="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center text-gray-950 font-bold mr-3 shadow-glow">PS</div>
                 <div>
                     <h2 class="text-sm font-bold text-white">Dashboard</h2>
                     <p class="text-[10px] text-gold-500 font-bold flex items-center"><i class="fas fa-circle text-[6px] mr-1"></i> Online</p>
                 </div>
             </div>
-            <button class="relative p-2 text-gray-300 hover:text-white transition">
+            <button class="relative p-2 text-gray-400 hover:text-white transition">
                 <i class="fas fa-bell text-xl"></i>
-                <span class="absolute top-1 right-1 bg-red-500 text-white text-[9px] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full border border-dark-900">3</span>
+                <span class="absolute top-1 right-1 bg-red-500 text-white text-[9px] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full border border-gray-900">3</span>
             </button>
         </header>
 
-        <header class="hidden md:flex bg-white h-20 shadow-sm items-center justify-between px-8 sticky top-0 z-10">
+        <header class="hidden md:flex bg-gray-900/50 backdrop-blur-sm h-20 shadow-dark-sm items-center justify-between px-8 sticky top-0 z-10 border-b border-gray-800/30">
             <div>
-                <h2 class="text-2xl font-bold text-dark-900">Visão Geral</h2>
-                <p class="text-xs text-gray-500">Bem-vindo ao Porto Sul System</p>
+                <h2 class="text-2xl font-bold text-white tracking-tight">Visão Geral</h2>
+                <p class="text-xs text-gray-400">Bem-vindo ao Porto Sul System</p>
             </div>
             <div class="flex items-center gap-6">
-                <button class="relative text-gray-400 hover:text-gold-600 transition" title="Pendências">
+                <button class="relative text-gray-400 hover:text-gold-500 transition" title="Pendências">
                     <i class="fas fa-bell text-xl"></i>
-                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-white animate-bounce">3</span>
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-gray-900">3</span>
                 </button>
                 
-                <div class="h-8 w-px bg-gray-200"></div>
+                <div class="h-8 w-px bg-gray-800"></div>
                 
                 <div class="flex items-center gap-3">
                     <div class="text-right">
-                        <p class="text-sm font-bold text-dark-900">Danilo Terra</p>
-                        <p class="text-[10px] text-gray-500">Gestor Imobiliário</p>
+                        <p class="text-sm font-bold text-white">Danilo Terra</p>
+                        <p class="text-[10px] text-gray-400">Gestor Imobiliário</p>
                     </div>
-                    <div class="w-10 h-10 rounded-full bg-dark-900 text-gold-500 flex items-center justify-center font-bold border-2 border-gold-500">DT</div>
+                    <div class="w-10 h-10 rounded-full bg-gray-800 text-gold-500 flex items-center justify-center font-bold border border-gold-500/30 shadow-glow">DT</div>
                 </div>
             </div>
         </header>
 
         <div class="flex-1 overflow-y-auto no-scrollbar p-6 pb-24 space-y-6">
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-gold-500">
-                    <div class="flex justify-between items-start mb-1">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in">
+                <div class="bg-gray-900 p-5 rounded-xl shadow-dark-sm border border-gray-800/50 relative overflow-hidden group">
+                    <div class="absolute right-0 top-0 p-3 opacity-10 group-hover:opacity-20 transition"><i class="fas fa-users text-5xl text-gold-500"></i></div>
+                    <div class="flex justify-between items-start mb-1 relative z-10">
                         <p class="text-gray-400 text-xs font-bold uppercase tracking-wide">Leads (Mês)</p>
-                        <i class="fas fa-users text-gold-500 opacity-50"></i>
                     </div>
-                    <h3 class="text-2xl font-black text-dark-900">342</h3>
-                    <p class="text-green-600 text-xs font-bold mt-1 flex items-center"><i class="fas fa-arrow-up mr-1"></i> +12% vs anterior</p>
+                    <h3 class="text-3xl font-black text-white relative z-10">342</h3>
+                    <p class="text-green-400 text-xs font-bold mt-2 flex items-center relative z-10"><i class="fas fa-arrow-up mr-1"></i> +12% vs anterior</p>
+                    <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-gold-500/50 to-transparent"></div>
                 </div>
 
-                <div class="bg-dark-900 p-5 rounded-xl shadow-lg border border-gray-700 relative overflow-hidden group cursor-pointer hover:scale-[1.02] transition">
-                    <div class="absolute right-0 top-0 p-3 opacity-10"><i class="fas fa-radar text-6xl text-white"></i></div>
+                <div class="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl shadow-dark-sm border border-gold-500/20 relative overflow-hidden group cursor-pointer hover:shadow-glow transition">
+                    <div class="absolute right-0 top-0 p-3 opacity-20 group-hover:scale-110 transition"><i class="fas fa-radar text-5xl text-gold-500"></i></div>
                     <div class="relative z-10">
                         <p class="text-gold-500 text-xs font-bold uppercase tracking-wide flex items-center"><i class="fas fa-bolt mr-1 animate-pulse"></i> Radar de Matches</p>
-                        <h3 class="text-2xl font-black text-white mt-1">8 Clientes</h3>
-                        <p class="text-gray-400 text-xs mt-1">Aprovados e aguardando imóvel</p>
+                        <h3 class="text-3xl font-black text-white mt-1">8 Clientes</h3>
+                        <p class="text-gray-400 text-xs mt-2">Aprovados e aguardando imóvel</p>
                     </div>
                 </div>
 
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                    <div class="flex justify-between items-start mb-1">
+                <div class="bg-gray-900 p-5 rounded-xl shadow-dark-sm border border-gray-800/50 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 p-3 opacity-10"><i class="fas fa-door-open text-5xl text-gray-500"></i></div>
+                    <div class="flex justify-between items-start mb-1 relative z-10">
                         <p class="text-gray-400 text-xs font-bold uppercase tracking-wide">Vacância</p>
-                        <i class="fas fa-door-open text-orange-500 opacity-50"></i>
                     </div>
-                    <h3 class="text-2xl font-black text-gray-800">12</h3>
-                    <p class="text-orange-500 text-xs font-bold mt-1">Imóveis vazios p/ locação</p>
+                    <h3 class="text-3xl font-black text-white relative z-10">12</h3>
+                    <p class="text-orange-400 text-xs font-bold mt-2 relative z-10">Imóveis vazios p/ locação</p>
+                    <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500/30 to-transparent"></div>
                 </div>
 
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                    <div class="flex justify-between items-start mb-1">
+                <div class="bg-gray-900 p-5 rounded-xl shadow-dark-sm border border-gray-800/50 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 p-3 opacity-10"><i class="fas fa-hand-holding-usd text-5xl text-red-500"></i></div>
+                    <div class="flex justify-between items-start mb-1 relative z-10">
                         <p class="text-gray-400 text-xs font-bold uppercase tracking-wide">Inadimplência</p>
-                        <i class="fas fa-exclamation-circle text-red-500 opacity-50"></i>
                     </div>
-                    <h3 class="text-2xl font-black text-red-600">R$ 12.450</h3>
-                    <p class="text-gray-400 text-xs mt-1">5 Contratos em atraso</p>
+                    <h3 class="text-3xl font-black text-white relative z-10">R$ 12.4k</h3>
+                    <p class="text-red-400 text-xs font-bold mt-2 relative z-10">5 Contratos em atraso</p>
+                    <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-red-500/30 to-transparent"></div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 lg:col-span-1">
+                <div class="bg-gray-900 rounded-2xl shadow-dark-sm border border-gray-800/50 p-5 lg:col-span-1 animate-fade-in" style="animation-delay: 0.1s">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-dark-900 flex items-center"><i class="fas fa-list-ul text-gold-500 mr-2"></i> Pendências</h3>
-                        <span class="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full">3 Urgentes</span>
+                        <h3 class="font-bold text-white flex items-center"><i class="fas fa-list-ul text-gold-500 mr-2"></i> Pendências</h3>
+                        <span class="bg-red-500/20 text-red-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-red-500/30">3 Urgentes</span>
                     </div>
                     
                     <div class="space-y-3">
-                        <div class="p-3 bg-red-50 rounded-xl border border-red-100 flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-red-500 shadow-sm"><i class="fas fa-hand-holding-usd"></i></div>
+                        <div class="p-3 bg-gray-800/50 rounded-xl border border-gray-700/50 flex items-center gap-3 group hover:bg-gray-800 transition">
+                            <div class="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center text-red-500 shadow-sm border border-red-500/20"><i class="fas fa-hand-holding-usd"></i></div>
                             <div class="flex-1">
-                                <p class="text-xs font-bold text-red-700 uppercase">Aluguel Atrasado</p>
-                                <p class="text-sm font-semibold text-gray-800">Roberto (Apto 302)</p>
+                                <p class="text-xs font-bold text-red-300 uppercase">Aluguel Atrasado</p>
+                                <p class="text-sm font-semibold text-gray-100">Roberto (Apto 302)</p>
                             </div>
-                            <button class="text-red-600 hover:bg-white p-2 rounded-lg transition"><i class="fab fa-whatsapp"></i></button>
+                            <button class="text-gray-500 hover:text-green-400 p-2 transition"><i class="fab fa-whatsapp"></i></button>
                         </div>
-
-                        <div class="p-3 bg-orange-50 rounded-xl border border-orange-100 flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-orange-500 shadow-sm"><i class="fas fa-file-invoice"></i></div>
+                        <div class="p-3 bg-gray-800/50 rounded-xl border border-gray-700/50 flex items-center gap-3 group hover:bg-gray-800 transition">
+                            <div class="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center text-orange-500 shadow-sm border border-orange-500/20"><i class="fas fa-file-invoice"></i></div>
                             <div class="flex-1">
-                                <p class="text-xs font-bold text-orange-700 uppercase">IPTU Vencendo</p>
-                                <p class="text-sm font-semibold text-gray-800">Casa Jd. América</p>
+                                <p class="text-xs font-bold text-orange-300 uppercase">IPTU Vencendo</p>
+                                <p class="text-sm font-semibold text-gray-100">Casa Jd. América</p>
                             </div>
-                            <button class="text-orange-600 hover:bg-white p-2 rounded-lg transition"><i class="fas fa-eye"></i></button>
-                        </div>
-
-                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-blue-500 shadow-sm"><i class="fas fa-tools"></i></div>
-                            <div class="flex-1">
-                                <p class="text-xs font-bold text-blue-700 uppercase">Manutenção</p>
-                                <p class="text-sm font-semibold text-gray-800">Infiltração (Sra. Maria)</p>
-                            </div>
-                            <button class="text-blue-600 hover:bg-white p-2 rounded-lg transition"><i class="fas fa-chevron-right"></i></button>
+                            <button class="text-gray-500 hover:text-gold-400 p-2 transition"><i class="fas fa-eye"></i></button>
                         </div>
                     </div>
-                    
-                    <button class="w-full mt-4 py-2 text-xs font-bold text-gray-500 hover:text-dark-900 border border-dashed border-gray-300 rounded-lg hover:bg-gray-50 transition">Ver todas as pendências</button>
+                    <button class="w-full mt-4 py-2 text-xs font-bold text-gray-400 hover:text-white border border-dashed border-gray-700 rounded-lg hover:bg-gray-800 transition">Ver todas</button>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 lg:col-span-2">
+                <div class="bg-gray-900 rounded-2xl shadow-dark-sm border border-gray-800/50 p-5 lg:col-span-2 animate-fade-in" style="animation-delay: 0.2s">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-dark-900">Processos em Andamento</h3>
-                        <button class="text-xs text-gold-600 font-bold hover:underline">Ver pipeline completo</button>
+                        <h3 class="font-bold text-white">Processos em Andamento</h3>
+                        <button class="text-xs text-gold-500 font-bold hover:underline">Ver pipeline</button>
                     </div>
                     
                     <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500">
-                            <thead class="text-xs text-gray-400 uppercase bg-gray-50">
+                        <table class="w-full text-sm text-left text-gray-400">
+                            <thead class="text-xs text-gray-500 uppercase bg-gray-800/50">
                                 <tr>
                                     <th class="px-4 py-3 rounded-l-lg">Cliente / Imóvel</th>
                                     <th class="px-4 py-3">Modalidade</th>
@@ -240,32 +224,17 @@
                                 </tr>
                             </thead>
                             <tbody class="space-y-2">
-                                <tr class="bg-white border-b border-gray-50 hover:bg-gray-50 transition">
-                                    <td class="px-4 py-3">
-                                        <p class="font-bold text-dark-900">João Silva</p>
-                                        <p class="text-xs text-gray-400">Apto Jardins</p>
-                                    </td>
-                                    <td class="px-4 py-3"><span class="bg-blue-50 text-blue-700 text-[10px] px-2 py-1 rounded border border-blue-100 font-bold">FINANCIAMENTO</span></td>
-                                    <td class="px-4 py-3 text-xs font-bold text-gray-600">Análise Caixa Econômica</td>
-                                    <td class="px-4 py-3"><span class="flex items-center text-xs text-orange-500 font-bold"><span class="status-dot bg-warning"></span> Aguardando</span></td>
+                                <tr class="bg-gray-900 border-b border-gray-800 hover:bg-gray-800/50 transition">
+                                    <td class="px-4 py-3"><p class="font-bold text-gray-100">João Silva</p><p class="text-xs text-gray-500">Apto Jardins</p></td>
+                                    <td class="px-4 py-3"><span class="bg-blue-900/30 text-blue-300 text-[10px] px-2 py-1 rounded border border-blue-500/30 font-bold">FINANCIAMENTO</span></td>
+                                    <td class="px-4 py-3 text-xs font-bold text-gray-300">Análise Caixa</td>
+                                    <td class="px-4 py-3"><span class="flex items-center text-xs text-orange-400 font-bold"><span class="status-dot bg-warning"></span> Aguardando</span></td>
                                 </tr>
-                                <tr class="bg-white border-b border-gray-50 hover:bg-gray-50 transition">
-                                    <td class="px-4 py-3">
-                                        <p class="font-bold text-dark-900">Empresa Log</p>
-                                        <p class="text-xs text-gray-400">Galpão Ind.</p>
-                                    </td>
-                                    <td class="px-4 py-3"><span class="bg-green-50 text-green-700 text-[10px] px-2 py-1 rounded border border-green-100 font-bold">A VISTA</span></td>
-                                    <td class="px-4 py-3 text-xs font-bold text-gray-600">Cartório / Despachante</td>
-                                    <td class="px-4 py-3"><span class="flex items-center text-xs text-green-600 font-bold"><span class="status-dot bg-success"></span> Registrando</span></td>
-                                </tr>
-                                <tr class="bg-white hover:bg-gray-50 transition">
-                                    <td class="px-4 py-3">
-                                        <p class="font-bold text-dark-900">Ana Souza</p>
-                                        <p class="text-xs text-gray-400">Casa 2Q</p>
-                                    </td>
-                                    <td class="px-4 py-3"><span class="bg-purple-50 text-purple-700 text-[10px] px-2 py-1 rounded border border-purple-100 font-bold">LOCAÇÃO</span></td>
-                                    <td class="px-4 py-3 text-xs font-bold text-gray-600">Assinatura Contrato</td>
-                                    <td class="px-4 py-3"><span class="flex items-center text-xs text-blue-500 font-bold"><span class="status-dot bg-blue-500"></span> Pendente</span></td>
+                                <tr class="bg-gray-900 border-b border-gray-800 hover:bg-gray-800/50 transition">
+                                    <td class="px-4 py-3"><p class="font-bold text-gray-100">Empresa Log</p><p class="text-xs text-gray-500">Galpão Ind.</p></td>
+                                    <td class="px-4 py-3"><span class="bg-green-900/30 text-green-300 text-[10px] px-2 py-1 rounded border border-green-500/30 font-bold">A VISTA</span></td>
+                                    <td class="px-4 py-3 text-xs font-bold text-gray-300">Cartório / Desp.</td>
+                                    <td class="px-4 py-3"><span class="flex items-center text-xs text-green-400 font-bold"><span class="status-dot bg-success"></span> Registrando</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -273,45 +242,31 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
+            <div class="bg-gray-900 rounded-2xl shadow-dark-sm border border-gray-800/50 p-5 animate-fade-in" style="animation-delay: 0.3s">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-bold text-dark-900 flex items-center"><i class="fas fa-search-dollar text-gold-500 mr-2"></i> Radar de Demanda (Sem Imóvel)</h3>
-                    <div class="flex gap-2">
-                        <button class="text-xs font-bold text-gray-500 hover:text-gold-600">Filtrar por Bairro</button>
-                    </div>
+                    <h3 class="font-bold text-white flex items-center"><i class="fas fa-search-dollar text-gold-500 mr-2"></i> Radar de Demanda (Sem Imóvel)</h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="border border-gray-200 rounded-xl p-4 hover:border-gold-400 hover:shadow-md transition cursor-pointer bg-gray-50/50">
+                    <div class="border border-gray-800 rounded-xl p-4 hover:border-gold-500/50 hover:bg-gray-800/50 transition cursor-pointer bg-gray-800/20">
                         <div class="flex justify-between mb-2">
-                            <span class="font-bold text-dark-900">Carlos Eduardo</span>
-                            <span class="bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded font-bold">Aprovado</span>
+                            <span class="font-bold text-gray-100">Carlos Eduardo</span>
+                            <span class="bg-green-900/30 text-green-300 text-[10px] px-2 py-0.5 rounded font-bold border border-green-500/30">Aprovado</span>
                         </div>
-                        <p class="text-xs text-gray-500 mb-3"><i class="fas fa-home mr-1"></i> Procura: Apto 3Q, Varanda, Sul.</p>
+                        <p class="text-xs text-gray-400 mb-3"><i class="fas fa-home mr-1"></i> Procura: Apto 3Q, Varanda, Sul.</p>
                         <div class="flex justify-between items-center">
-                            <p class="text-sm font-black text-dark-900">Até R$ 650k</p>
-                            <button class="text-[10px] font-bold text-blue-600 hover:underline">Vincular Imóvel</button>
+                            <p class="text-sm font-black text-white">Até R$ 650k</p>
+                            <button class="text-[10px] font-bold text-gold-500 hover:text-gold-400 hover:underline">Vincular</button>
                         </div>
                     </div>
-                    <div class="border border-gray-200 rounded-xl p-4 hover:border-gold-400 hover:shadow-md transition cursor-pointer bg-gray-50/50">
+                    <div class="border border-gray-800 rounded-xl p-4 hover:border-gold-500/50 hover:bg-gray-800/50 transition cursor-pointer bg-gray-800/20">
                         <div class="flex justify-between mb-2">
-                            <span class="font-bold text-dark-900">Mariana Lima</span>
-                            <span class="bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded font-bold">À Vista</span>
+                            <span class="font-bold text-gray-100">Tech Solutions</span>
+                            <span class="bg-purple-900/30 text-purple-300 text-[10px] px-2 py-0.5 rounded font-bold border border-purple-500/30">Locação</span>
                         </div>
-                        <p class="text-xs text-gray-500 mb-3"><i class="fas fa-tree mr-1"></i> Procura: Casa Condomínio.</p>
+                        <p class="text-xs text-gray-400 mb-3"><i class="fas fa-building mr-1"></i> Procura: Sala +100m².</p>
                         <div class="flex justify-between items-center">
-                            <p class="text-sm font-black text-dark-900">Até R$ 1.2 Mi</p>
-                            <button class="text-[10px] font-bold text-blue-600 hover:underline">Vincular Imóvel</button>
-                        </div>
-                    </div>
-                    <div class="border border-gray-200 rounded-xl p-4 hover:border-gold-400 hover:shadow-md transition cursor-pointer bg-gray-50/50">
-                        <div class="flex justify-between mb-2">
-                            <span class="font-bold text-dark-900">Tech Solutions</span>
-                            <span class="bg-purple-100 text-purple-700 text-[10px] px-2 py-0.5 rounded font-bold">Locação</span>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-3"><i class="fas fa-building mr-1"></i> Procura: Sala +100m².</p>
-                        <div class="flex justify-between items-center">
-                            <p class="text-sm font-black text-dark-900">R$ 5k/mês</p>
-                            <button class="text-[10px] font-bold text-blue-600 hover:underline">Vincular Imóvel</button>
+                            <p class="text-sm font-black text-white">R$ 5k/mês</p>
+                            <button class="text-[10px] font-bold text-gold-500 hover:text-gold-400 hover:underline">Vincular</button>
                         </div>
                     </div>
                 </div>
@@ -320,66 +275,50 @@
         </div>
     </main>
 
-    <nav class="md:hidden fixed bottom-0 w-full bg-dark-900 border-t border-gray-800 flex justify-around items-end pb-3 pt-2 z-40 shadow-2xl">
+    <nav class="md:hidden fixed bottom-0 w-full bg-gray-900 border-t border-gray-800 flex justify-around items-end pb-3 pt-2 z-40 shadow-2xl">
         <a href="admin.html" class="flex flex-col items-center w-16 text-gold-500 tap-highlight-transparent transition">
-            <i class="fas fa-home text-xl mb-1"></i>
-            <span class="text-[10px] font-medium">Início</span>
+            <i class="fas fa-home text-xl mb-1"></i><span class="text-[10px] font-medium">Início</span>
         </a>
         <a href="leads.html" class="flex flex-col items-center w-16 text-gray-400 hover:text-gold-500 tap-highlight-transparent transition">
-            <i class="fas fa-users text-xl mb-1"></i>
-            <span class="text-[10px] font-medium">Leads</span>
+            <i class="fas fa-users text-xl mb-1"></i><span class="text-[10px] font-medium">Leads</span>
         </a>
         <div class="relative -top-6">
-            <button onclick="toggleModal('modalNovoAnuncio')" class="w-14 h-14 bg-gold-500 rounded-full shadow-lg shadow-gold-500/20 flex items-center justify-center text-dark-900 text-2xl transform transition active:scale-90 tap-highlight-transparent border-4 border-dark-900">
+            <button class="w-14 h-14 bg-gold-500 rounded-full shadow-glow flex items-center justify-center text-gray-950 text-2xl transform transition active:scale-90 tap-highlight-transparent border-4 border-gray-900">
                 <i class="fas fa-plus"></i>
             </button>
         </div>
         <a href="estoque.html" class="flex flex-col items-center w-16 text-gray-400 hover:text-gold-500 tap-highlight-transparent transition">
-            <i class="fas fa-building text-xl mb-1"></i>
-            <span class="text-[10px] font-medium">Imóveis</span>
+            <i class="fas fa-building text-xl mb-1"></i><span class="text-[10px] font-medium">Imóveis</span>
         </a>
         <button onclick="toggleMenu()" class="flex flex-col items-center w-16 text-gray-400 hover:text-gold-500 tap-highlight-transparent">
-            <i class="fas fa-bars text-xl mb-1"></i>
-            <span class="text-[10px] font-medium">Menu</span>
+            <i class="fas fa-bars text-xl mb-1"></i><span class="text-[10px] font-medium">Menu</span>
         </button>
     </nav>
 
     <div id="mobileMenuSheet" class="hidden fixed inset-0 z-50">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onclick="toggleMenu()"></div>
-        <div id="menuContent" class="absolute bottom-0 w-full bg-white rounded-t-3xl shadow-2xl animate-slide-up flex flex-col max-h-[85vh]">
-            <div class="w-full flex justify-center pt-4 pb-2 cursor-grab touch-none"><div class="w-12 h-1.5 bg-gray-300 rounded-full"></div></div>
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm animate-fade-in" onclick="toggleMenu()"></div>
+        <div id="menuContent" class="absolute bottom-0 w-full bg-gray-900 rounded-t-3xl shadow-2xl animate-slide-up flex flex-col max-h-[85vh] border-t border-gray-800">
+            <div class="w-full flex justify-center pt-4 pb-2 cursor-grab touch-none"><div class="w-12 h-1.5 bg-gray-700 rounded-full"></div></div>
             <div class="p-6 overflow-y-auto space-y-4">
-                <h3 class="font-bold text-gray-400 uppercase text-xs tracking-wider">Acesso Rápido</h3>
-                <a href="admin.html" class="flex items-center p-3 bg-dark-900 text-white rounded-xl font-bold border border-gold-500/30"><i class="fas fa-chart-pie mr-3 text-gold-500"></i> Dashboard</a>
-                <a href="leads.html" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600 font-bold"><i class="fas fa-users mr-3"></i> Leads</a>
-                <a href="estoque.html" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600 font-bold"><i class="fas fa-home mr-3"></i> Imóveis</a>
+                <h3 class="font-bold text-gray-500 uppercase text-xs tracking-wider">Acesso Rápido</h3>
+                <a href="admin.html" class="flex items-center p-3 bg-gray-800 text-white rounded-xl font-bold border border-gold-500/30"><i class="fas fa-chart-pie mr-3 text-gold-500"></i> Dashboard</a>
+                <a href="leads.html" class="flex items-center p-3 hover:bg-gray-800 rounded-xl text-gray-300 font-bold transition"><i class="fas fa-users mr-3"></i> Leads</a>
                 
-                <h3 class="font-bold text-gray-400 uppercase text-xs pt-4 tracking-wider">Gestão & Finanças</h3>
-                <a href="#" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600"><i class="fas fa-key mr-3 text-purple-500"></i> Aluguéis e IPTU</a>
-                <a href="#" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600"><i class="fas fa-tools mr-3 text-blue-500"></i> Manutenção</a>
-                <a href="#" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600"><i class="fas fa-file-contract mr-3 text-orange-500"></i> Contratos Jurídicos</a>
+                <h3 class="font-bold text-gray-500 uppercase text-xs pt-4 tracking-wider">Gestão</h3>
+                <a href="#" class="flex items-center p-3 hover:bg-gray-800 rounded-xl text-gray-300 transition"><i class="fas fa-key mr-3 text-gold-500"></i> Aluguéis e IPTU</a>
+                <a href="#" class="flex items-center p-3 hover:bg-gray-800 rounded-xl text-gray-300 transition"><i class="fas fa-file-contract mr-3 text-gold-500"></i> Contratos Jurídicos</a>
                 
-                <a href="index.html" class="block w-full text-center py-3 border border-gray-200 text-gray-500 rounded-xl font-bold mt-4">Ver Site da Loja</a>
+                <a href="index.html" class="block w-full text-center py-3 border border-gray-700 text-gray-400 hover:text-white rounded-xl font-bold mt-4 transition">Ver Site da Loja</a>
             </div>
         </div>
     </div>
 
-    <div id="modalNovoAnuncio" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end md:items-center justify-center">
-        <div class="absolute inset-0" onclick="toggleModal('modalNovoAnuncio')"></div>
-        <div class="bg-white w-full md:w-auto md:max-w-md p-6 rounded-t-3xl md:rounded-2xl relative z-10 animate-slide-up">
-            <h3 class="text-xl font-bold mb-4 text-dark-900">Novo Imóvel</h3>
-            <p class="mb-6 text-sm text-gray-500">Use a tela de estoque completa para cadastrar com todos os detalhes.</p>
-            <a href="estoque.html" class="block w-full bg-gold-500 hover:bg-gold-600 text-dark-900 text-center py-3 rounded-lg font-bold transition">Ir para Cadastro Completo</a>
-        </div>
-    </div>
-
     <script>
-        function toggleModal(id) {
-            const modal = document.getElementById(id);
-            if (modal.classList.contains('hidden')) { modal.classList.remove('hidden'); modal.classList.add('flex'); document.body.style.overflow = 'hidden'; } 
-            else { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenuSheet');
+            if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } 
+            else { menu.classList.add('hidden'); document.body.style.overflow = ''; }
         }
-        function toggleMenu() { toggleModal('mobileMenuSheet'); }
     </script>
 </body>
 </html>
