@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Imob System - ERP Completo</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .tap-highlight-transparent { -webkit-tap-highlight-color: transparent; }
+        
+        /* Badges de Status */
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+        .bg-danger { background-color: #ef4444; }
+        .bg-warning { background-color: #f59e0b; }
+        .bg-success { background-color: #22c55e; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans h-screen flex flex-col overflow-hidden text-gray-800">
+
+    <aside class="hidden md:flex w-64 bg-slate-900 text-white flex-col h-full fixed left-0 top-0 z-20 overflow-y-auto custom-scrollbar">
+        <div class="h-20 flex items-center justify-center border-b border-slate-800 shrink-0">
+            <span class="text-xl font-bold tracking-wider flex items-center">
+                <i class="fas fa-building text-blue-500 mr-2"></i>Imob System
+            </span>
+        </div>
+        
+        <nav class="flex-1 px-4 py-6 space-y-1">
+            <p class="text-[10px] uppercase text-slate-500 font-bold mb-2 mt-2">Visão Geral</p>
+            <a href="admin.html" class="flex items-center space-x-3 bg-blue-600 text-white px-4 py-3 rounded-xl shadow-lg transition"><i class="fas fa-chart-pie w-5 text-center"></i><span class="font-medium text-sm">Dashboard</span></a>
+            
+            <p class="text-[10px] uppercase text-slate-500 font-bold mb-2 mt-4">Comercial</p>
+            <a href="#" class="flex items-center space-x-3 text-slate-400 hover:text-white hover:bg-slate-800 px-4 py-2.5 rounded-xl transition"><i class="fas fa-filter w-5 text-center"></i><span class="font-medium text-sm">Funil de Vendas</span></a>
+            <a href="leads.html" class="flex items-center space-x-3 text-slate-400 hover:text-white hover:bg-slate-800 px-4 py-2.5 rounded-xl transition"><i class="fas fa-users w-5 text-center"></i><span class="font-medium text-sm">Leads & CRM</span></a>
+            <a href="#" class="flex items-center space-x-3 text-slate-400 hover:text-white hover:bg-slate-800 px-4 py-2.5 rounded-xl transition"><i class="fas fa-radar w-5 text-center"></i><span class="font-medium text-sm">Radar (Match)</span> <span class="bg-blue-500 text-[9px] px-1.5 rounded ml-auto">Novo</span></a>
+            
+            <p class="text-[10px] uppercase text-slate-500 font-bold mb-2 mt-4">Carteira & Locação</p>
+            <a href="estoque.html" class="flex items-center space-x-3 text-slate-400 hover:text-white hover:bg-slate-800 px-4 py-2.5 rounded-xl transition"><i class="fas fa-home w-5 text-center"></i><span class="font-medium text-sm">Imóveis / Estoque</span></a>
+            <a href="#" class="flex items-center space-x-3 text-slate-400 hover:text-white hover:bg-slate-800 px-4 py-2.5 rounded-xl transition"><i class="fas fa-key w-5 text-center"></i><span class="font-medium text-sm">Gestão de Aluguel</span></a>
+            <a href="#" class="flex items-center space-x-3 text-slate-400 hover:text-white hover:bg-slate-800 px-4 py-2.5 rounded-xl transition"><i class="fas fa-tools w-5 text-center"></i><span class="font-medium text-sm">Manutenção</span></a>
+            
+            <p class="text-[10px] uppercase text-slate-500 font-bold mb-2 mt-4">Backoffice</p>
+            <a href="metrics.html" class="flex items-center space-x-3 text-slate-400 hover:text-white hover:bg-slate-800 px-4 py-2.5 rounded-xl transition"><i class="fas fa-file-contract w-5 text-center"></i><span class="font-medium text-sm">Jurídico/Contratos</span></a>
+            <a href="#" class="flex items-center space-x-3 text-slate-400 hover:text-white hover:bg-slate-800 px-4 py-2.5 rounded-xl transition"><i class="fas fa-dollar-sign w-5 text-center"></i><span class="font-medium text-sm">Financeiro</span></a>
+        </nav>
+        
+        <div class="px-4 py-4 border-t border-slate-800">
+            <a href="index.html" target="_blank" class="flex items-center space-x-3 text-slate-400 hover:text-blue-400 transition mb-3"><i class="fas fa-globe w-5 text-center"></i><span class="font-medium text-sm">Ver Site</span></a>
+            <a href="#" class="flex items-center space-x-3 text-slate-400 hover:text-red-400 transition"><i class="fas fa-sign-out-alt w-5 text-center"></i><span class="font-medium text-sm">Sair</span></a>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-full md:ml-64 relative bg-gray-50">
+        
+        <header class="bg-white h-16 shadow-sm flex items-center justify-between px-6 sticky top-0 z-10">
+            <h2 class="text-xl font-bold text-gray-800">Visão Geral da Imobiliária</h2>
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 text-gray-500 hover:bg-red-50 hover:text-red-500 rounded-full transition" title="Pendências Urgentes">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span class="absolute top-1 right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-white">3</span>
+                </button>
+                <div class="h-8 w-px bg-gray-200"></div>
+                <div class="flex items-center gap-3">
+                    <div class="text-right hidden md:block">
+                        <p class="text-sm font-bold text-gray-800">Danilo Terra</p>
+                        <p class="text-[10px] text-gray-500">Gestor Master</p>
+                    </div>
+                    <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold">DT</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto no-scrollbar p-6 pb-24 space-y-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex justify-between items-start mb-2">
+                        <div><p class="text-gray-400 text-xs font-bold uppercase">Leads (Mês)</p><h3 class="text-2xl font-black text-gray-800">342</h3></div>
+                        <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center"><i class="fas fa-users"></i></div>
+                    </div>
+                    <p class="text-green-600 text-xs font-bold flex items-center"><i class="fas fa-arrow-up mr-1"></i> 12% vs mês anterior</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex justify-between items-start mb-2">
+                        <div><p class="text-gray-400 text-xs font-bold uppercase">Vacância</p><h3 class="text-2xl font-black text-gray-800">12</h3></div>
+                        <div class="w-10 h-10 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center"><i class="fas fa-door-open"></i></div>
+                    </div>
+                    <p class="text-orange-600 text-xs font-bold">Imóveis vazios p/ locação</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex justify-between items-start mb-2">
+                        <div><p class="text-gray-400 text-xs font-bold uppercase">Inadimplência</p><h3 class="text-2xl font-black text-red-600">R$ 12.4k</h3></div>
+                        <div class="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center"><i class="fas fa-hand-holding-usd"></i></div>
+                    </div>
+                    <p class="text-red-500 text-xs font-bold">5 inquilinos em atraso</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-indigo-600 to-blue-600 p-5 rounded-2xl shadow-lg text-white">
+                    <div class="flex justify-between items-start mb-2">
+                        <div><p class="text-blue-200 text-xs font-bold uppercase">Radar de Oportunidades</p><h3 class="text-2xl font-black">8 Matches</h3></div>
+                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"><i class="fas fa-radar"></i></div>
+                    </div>
+                    <p class="text-blue-100 text-xs">Clientes aguardando imóveis</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 lg:col-span-1">
+                    <h3 class="font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-bell text-yellow-500 mr-2"></i> Pendências & Ações</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 bg-red-50 rounded-xl border border-red-100">
+                            <div class="w-2 h-2 rounded-full bg-red-500 mr-3"></div>
+                            <div class="flex-1">
+                                <p class="text-xs font-bold text-red-700 uppercase">Atraso Aluguel</p>
+                                <p class="text-sm font-semibold text-gray-800">Roberto Carlos (Apto 302)</p>
+                            </div>
+                            <button class="text-red-600 hover:bg-red-200 p-2 rounded-lg transition"><i class="fab fa-whatsapp"></i></button>
+                        </div>
+                        <div class="flex items-center p-3 bg-yellow-50 rounded-xl border border-yellow-100">
+                            <div class="w-2 h-2 rounded-full bg-yellow-500 mr-3"></div>
+                            <div class="flex-1">
+                                <p class="text-xs font-bold text-yellow-700 uppercase">IPTU Pendente</p>
+                                <p class="text-sm font-semibold text-gray-800">Casa Jd. América</p>
+                            </div>
+                            <button class="text-yellow-600 hover:bg-yellow-200 p-2 rounded-lg transition"><i class="fas fa-eye"></i></button>
+                        </div>
+                        <div class="flex items-center p-3 bg-blue-50 rounded-xl border border-blue-100">
+                            <div class="w-2 h-2 rounded-full bg-blue-500 mr-3"></div>
+                            <div class="flex-1">
+                                <p class="text-xs font-bold text-blue-700 uppercase">Manutenção</p>
+                                <p class="text-sm font-semibold text-gray-800">Vazamento Pia (Sra. Maria)</p>
+                            </div>
+                            <button class="text-blue-600 hover:bg-blue-200 p-2 rounded-lg transition"><i class="fas fa-tools"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 lg:col-span-2">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-gray-800">Processos em Andamento</h3>
+                        <button class="text-xs text-blue-600 font-bold hover:underline">Ver detalhado</button>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-400 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 rounded-l-lg">Cliente/Imóvel</th>
+                                    <th class="px-4 py-3">Tipo</th>
+                                    <th class="px-4 py-3">Etapa Atual</th>
+                                    <th class="px-4 py-3 rounded-r-lg">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="space-y-2">
+                                <tr class="bg-white border-b border-gray-50">
+                                    <td class="px-4 py-3 font-medium text-gray-900">João Silva <br><span class="text-xs text-gray-400">Apto Jardins</span></td>
+                                    <td class="px-4 py-3"><span class="bg-indigo-50 text-indigo-700 text-[10px] px-2 py-1 rounded font-bold">FINANCIAMENTO</span></td>
+                                    <td class="px-4 py-3">Análise Caixa Econômica</td>
+                                    <td class="px-4 py-3"><span class="status-dot bg-warning"></span> Aguardando</td>
+                                </tr>
+                                <tr class="bg-white border-b border-gray-50">
+                                    <td class="px-4 py-3 font-medium text-gray-900">Empresa X <br><span class="text-xs text-gray-400">Galpão Ind.</span></td>
+                                    <td class="px-4 py-3"><span class="bg-green-50 text-green-700 text-[10px] px-2 py-1 rounded font-bold">A VISTA</span></td>
+                                    <td class="px-4 py-3">Cartório / Despachante</td>
+                                    <td class="px-4 py-3"><span class="status-dot bg-success"></span> Registrando</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="px-4 py-3 font-medium text-gray-900">Ana Souza <br><span class="text-xs text-gray-400">Casa 2Q</span></td>
+                                    <td class="px-4 py-3"><span class="bg-purple-50 text-purple-700 text-[10px] px-2 py-1 rounded font-bold">LOCAÇÃO</span></td>
+                                    <td class="px-4 py-3">Análise de Ficha/Seguro</td>
+                                    <td class="px-4 py-3"><span class="status-dot bg-warning"></span> Pendente Docs</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-gray-800 flex items-center"><i class="fas fa-search-dollar text-blue-500 mr-2"></i> Radar de Demanda (Sem Imóvel)</h3>
+                    <span class="text-xs bg-blue-100 text-blue-700 font-bold px-2 py-1 rounded">3 Leads Quentes</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition cursor-pointer">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-gray-800">Carlos Eduardo</span>
+                            <span class="text-green-600 font-bold text-xs">Crédito Aprovado</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">Procura: Apto 3Q, Varanda Gourmet, Sul.</p>
+                        <p class="text-xs font-bold text-slate-700">Até R$ 650.000</p>
+                        <button class="mt-3 w-full py-1.5 bg-blue-50 text-blue-600 text-xs font-bold rounded-lg hover:bg-blue-100">Vincular Imóvel</button>
+                    </div>
+                    <div class="border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition cursor-pointer">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-gray-800">Mariana Lima</span>
+                            <span class="text-orange-500 font-bold text-xs">A VISTA</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">Procura: Casa em Condomínio Fechado.</p>
+                        <p class="text-xs font-bold text-slate-700">Até R$ 1.2 Mi</p>
+                        <button class="mt-3 w-full py-1.5 bg-blue-50 text-blue-600 text-xs font-bold rounded-lg hover:bg-blue-100">Vincular Imóvel</button>
+                    </div>
+                    <div class="border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition cursor-pointer">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-gray-800">Tech Solutions</span>
+                            <span class="text-purple-500 font-bold text-xs">Locação</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-2">Procura: Sala Comercial +100m².</p>
+                        <p class="text-xs font-bold text-slate-700">Até R$ 5.000/mês</p>
+                        <button class="mt-3 w-full py-1.5 bg-blue-50 text-blue-600 text-xs font-bold rounded-lg hover:bg-blue-100">Vincular Imóvel</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="mobileMenuSheet" class="hidden fixed inset-0 z-50">
+        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onclick="toggleMenu()"></div>
+        <div id="menuContent" class="absolute bottom-0 w-full bg-white rounded-t-3xl shadow-2xl flex flex-col max-h-[85vh]">
+            <div class="w-full flex justify-center pt-4 pb-2"><div class="w-12 h-1.5 bg-gray-300 rounded-full"></div></div>
+            <div class="p-6 overflow-y-auto space-y-4">
+                <h3 class="font-bold text-gray-400 uppercase text-xs">Acesso Rápido</h3>
+                <a href="admin.html" class="flex items-center p-3 bg-blue-50 text-blue-700 rounded-xl font-bold"><i class="fas fa-chart-pie mr-3"></i> Dashboard</a>
+                <a href="leads.html" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600 font-bold"><i class="fas fa-users mr-3"></i> Leads</a>
+                <a href="estoque.html" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600 font-bold"><i class="fas fa-home mr-3"></i> Imóveis</a>
+                
+                <h3 class="font-bold text-gray-400 uppercase text-xs pt-4">Gestão</h3>
+                <a href="#" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600"><i class="fas fa-key mr-3 text-purple-500"></i> Aluguéis e IPTU</a>
+                <a href="#" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600"><i class="fas fa-tools mr-3 text-blue-500"></i> Manutenção</a>
+                <a href="#" class="flex items-center p-3 hover:bg-gray-50 rounded-xl text-gray-600"><i class="fas fa-file-contract mr-3 text-orange-500"></i> Contratos</a>
+                
+                <a href="index.html" class="block w-full text-center py-3 border border-gray-200 rounded-xl font-bold mt-4">Ver Site</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenuSheet');
+            if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); } else { menu.classList.add('hidden'); }
+        }
+    </script>
+</body>
+</html>
