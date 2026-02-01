@@ -1,0 +1,56 @@
+<footer style="background-color: var(--color-primary); color: #ccc; padding: 60px 0 20px 0; border-top: 5px solid var(--color-secondary);">
+    <div class="container">
+        <div class="footer-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
+            
+            <div class="footer-col">
+                <h3 style="color: var(--color-text-inverse); margin-bottom: 20px;">
+                    PORTO <span class="text-gold">SUL</span>
+                </h3>
+                <p data-bind="client.slogan" style="font-style: italic; margin-bottom: 20px;"></p>
+                <p style="font-size: 0.9rem;">
+                    Referência em imóveis de alto padrão e gestão patrimonial eficiente.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h4 style="color: var(--color-text-inverse); font-size: 1.2rem; margin-bottom: 20px;">Imóveis</h4>
+                <ul style="display: flex; flexDirection: column; gap: 10px;">
+                    <li><a href="#" class="hover-gold">Apartamentos de Luxo</a></li>
+                    <li><a href="#" class="hover-gold">Casas em Condomínio</a></li>
+                    <li><a href="#" class="hover-gold">Salas Comerciais</a></li>
+                    <li><a href="#" class="hover-gold">Terrenos para Investir</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 style="color: var(--color-text-inverse); font-size: 1.2rem; margin-bottom: 20px;">Fale Conosco</h4>
+                <ul style="font-size: 0.95rem;">
+                    <li style="margin-bottom: 10px;">
+                        <i class="fas fa-map-marker-alt text-gold" style="width: 20px;"></i>
+                        <span data-bind="client.address.street"></span>, 
+                        <span data-bind="client.address.city"></span>-<span data-bind="client.address.state"></span>
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <i class="fas fa-phone text-gold" style="width: 20px;"></i>
+                        <span data-bind="client.contact.phone"></span>
+                    </li>
+                    <li style="margin-bottom: 10px;">
+                        <i class="fab fa-whatsapp text-gold" style="width: 20px;"></i>
+                        <span data-bind="client.contact.whatsapp"></span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope text-gold" style="width: 20px;"></i>
+                        <span data-bind="client.contact.email"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright" style="border-top: 1px solid var(--color-secondary); padding-top: 20px; text-align: center; font-size: 0.85rem;">
+            <p>
+                &copy; 2026 <span data-bind="client.name"></span>. Todos os direitos reservados.
+                <br> CNPJ: <span data-bind="client.cnpj"></span>
+            </p>
+        </div>
+    </div>
+</footer>
