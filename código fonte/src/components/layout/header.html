@@ -1,0 +1,40 @@
+<div class="topbar" style="background-color: var(--color-secondary); color: var(--color-text-inverse); padding: 8px 0; font-size: 0.85rem;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="contact-info">
+            <span style="margin-right: 20px;">
+                <i class="fas fa-phone-alt text-gold"></i> 
+                <span data-bind="client.contact.phone"></span>
+            </span>
+            <span>
+                <i class="fas fa-envelope text-gold"></i> 
+                <span data-bind="client.contact.email"></span>
+            </span>
+        </div>
+        <div class="social-links">
+            <span class="text-muted">Siga-nos:</span>
+            <a href="#" class="text-gold" style="margin-left: 10px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-gold" style="margin-left: 10px;"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+</div>
+
+<nav class="main-nav" style="background-color: var(--color-primary); padding: 20px 0; border-bottom: 3px solid var(--color-accent);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+        
+        <a href="/" class="brand" style="font-family: var(--font-display); font-size: 1.8rem; color: var(--color-text-inverse); font-weight: 700;">
+            PORTO <span class="text-gold">SUL</span>
+        </a>
+
+        <ul class="nav-links" style="display: flex; gap: 30px;">
+            <li><a href="/pages/index.html" style="color: var(--color-text-inverse); font-weight: 500;">Início</a></li>
+            <li><a href="#" style="color: var(--color-text-inverse); font-weight: 500;">Comprar</a></li>
+            <li><a href="#" style="color: var(--color-text-inverse); font-weight: 500;">Alugar</a></li>
+            <li><a href="#" style="color: var(--color-text-inverse); font-weight: 500;">Lançamentos</a></li>
+            <li><a href="/pages/dashboard.html" style="color: var(--color-text-secondary); font-size: 0.9em;">(Admin)</a></li>
+        </ul>
+
+        <a href="/pages/forms.html" class="btn btn-primary">
+            Anuncie seu Imóvel
+        </a>
+    </div>
+</nav>
