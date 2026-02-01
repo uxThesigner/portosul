@@ -1,0 +1,135 @@
+/* /src/styles/main.css */
+
+/* 1. IMPORTAÇÃO DE FONTES (Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&display=swap');
+
+/* 2. RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* 3. BASE DO TEMA (Consumindo as variáveis do theme.js) */
+:root {
+    /* As variáveis de cor (--color-primary, etc) serão injetadas pelo JS */
+    /* Aqui definimos apenas valores de fallback caso o JS falhe */
+    --transition-speed: 0.3s;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: var(--font-main, 'Inter', sans-serif);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 4. TIPOGRAFIA PREMIUM */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display, 'Playfair Display', serif);
+    color: var(--color-primary); /* Títulos em Preto Profundo */
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-speed);
+}
+
+ul {
+    list-style: none;
+}
+
+/* 5. COMPONENTES GLOBAIS (Botões e Inputs) */
+
+/* Botão Principal (Dourado) */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 4px; /* Quadrado levemente arredondado = mais elegante */
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-speed) ease;
+    font-family: var(--font-main);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background-color: var(--color-accent); /* Dourado */
+    color: var(--color-primary); /* Texto preto sobre dourado (melhor contraste) */
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Botão Secundário (Borda Dourada ou Preta) */
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse); /* Texto branco */
+}
+
+/* Botão Link (Texto Simples) */
+.btn-link {
+    background: none;
+    color: var(--color-text-secondary);
+    padding: 0;
+    text-transform: none;
+}
+
+.btn-link:hover {
+    color: var(--color-accent);
+}
+
+/* Container padrão para centralizar conteúdo */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Utilitários de Texto */
+.text-center { text-align: center; }
+.text-gold { color: var(--color-accent); }
+.text-muted { color: var(--color-text-secondary); }
+
+/* Inputs Básicos */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: var(--font-main);
+    background-color: var(--color-surface);
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2); /* Aura dourada no foco */
+}
