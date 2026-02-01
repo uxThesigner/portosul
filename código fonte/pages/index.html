@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregando Porto Sul...</title> <link rel="stylesheet" href="../src/styles/main.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Hero Section: O Banner Principal */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1600596542815-6ad4c727dd2d?q=80&w=2075&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: #fff; /* Força branco no banner */
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Barra de Busca Flutuante */
+        .search-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 800px;
+            margin: 40px auto 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box select, .search-box input {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1; /* Cresce para ocupar espaço */
+            min-width: 200px;
+        }
+
+        /* Seção de Categorias */
+        .categories {
+            padding: 60px 0;
+            background-color: #fff;
+        }
+        
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .cat-card {
+            padding: 30px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .cat-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cat-card i {
+            font-size: 2rem;
+            color: var(--color-accent);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Grid de Imóveis */
+        .properties-section {
+            padding: 80px 0;
+            background-color: var(--color-background);
+        }
+
+        .prop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* Card do Imóvel (Simples) */
+        .prop-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: 0.3s;
+        }
+
+        .prop-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .prop-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .prop-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--color-accent);
+            color: #000;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .prop-info {
+            padding: 20px;
+        }
+
+        .prop-price {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            font-weight: 700;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-header"></div>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content container">
+                <h4 style="letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px;">Exclusividade e Requinte</h4>
+                <h1>Encontre o imóvel que combina<br>com seu estilo de vida.</h1>
+                
+                <div class="search-box">
+                    <select>
+                        <option>Comprar</option>
+                        <option>Alugar</option>
+                    </select>
+                    <input type="text" placeholder="Qual bairro ou cidade?">
+                    <select>
+                        <option>Tipo de Imóvel</option>
+                        <option>Casa</option>
+                        <option>Apartamento</option>
+                        <option>Cobertura</option>
+                    </select>
+                    <button class="btn btn-primary" style="flex: 0.5;">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h3>O que você procura?</h3>
+                <p class="text-muted">Navegue por nossas categorias exclusivas</p>
+            </div>
+            
+            <div class="cat-grid">
+                <div class="cat-card">
+                    <i class="fas fa-building"></i>
+                    <h5>Apartamentos</h5>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-home"></i>
+                    <h5>Casas</h5>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-key"></i>
+                    <h5>Aluguel</h5>
+                </div>
+                <div class="cat-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h5>Comercial</h5>
+                </div>
+            </div>
+        </section>
+
+        <section class="properties-section">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: end;">
+                    <div>
+                        <h3>Destaques Porto Sul</h3>
+                        <p class="text-muted">Oportunidades selecionadas a dedo para você.</p>
+                    </div>
+                    <a href="#" class="btn btn-outline">Ver Todos</a>
+                </div>
+
+                <div class="prop-grid">
+                    <article class="prop-card">
+                        <div class="prop-img" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop');">
+                            <span class="prop-badge">Venda</span>
+                        </div>
+                        <div class="prop-info">
+                            <span class="text-muted" style="font-size: 0.85rem;">Bairro Jardins</span>
+                            <h4>Mansão Contemporânea</h4>
+                            <div class="prop-price">R$ 3.500.000</div>
+                            <div style="display: flex; gap: 15px; margin-top: 15px; color: #666; font-size: 0.9rem;">
+                                <span><i class="fas fa-bed text-gold"></i> 4 Quartos</span>
+                                <span><i class="fas fa-ruler-combined text-gold"></i> 450m²</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="prop-card">
+                        <div class="prop-img" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2070&auto=format&fit=crop');">
+                            <span class="prop-badge" style="background: #28a745; color: white;">Aluguel</span>
+                        </div>
+                        <div class="prop-info">
+                            <span class="text-muted" style="font-size: 0.85rem;">Centro</span>
+                            <h4>Apartamento High Line</h4>
+                            <div class="prop-price">R$ 4.200 <small style="font-size: 0.9rem; font-weight: 400;">/mês</small></div>
+                            <div style="display: flex; gap: 15px; margin-top: 15px; color: #666; font-size: 0.9rem;">
+                                <span><i class="fas fa-bed text-gold"></i> 2 Quartos</span>
+                                <span><i class="fas fa-ruler-combined text-gold"></i> 85m²</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="prop-card">
+                        <div class="prop-img" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop');">
+                            <span class="prop-badge">Lançamento</span>
+                        </div>
+                        <div class="prop-info">
+                            <span class="text-muted" style="font-size: 0.85rem;">Zona Sul</span>
+                            <h4>Residencial Gold Ville</h4>
+                            <div class="prop-price">Sob Consulta</div>
+                            <div style="display: flex; gap: 15px; margin-top: 15px; color: #666; font-size: 0.9rem;">
+                                <span><i class="fas fa-bed text-gold"></i> 3 Quartos</span>
+                                <span><i class="fas fa-swimming-pool text-gold"></i> Lazer Completo</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="app-footer"></div>
+
+    <script type="module" src="../src/app.js"></script>
+    
+</body>
+</html>
