@@ -2,7 +2,9 @@
 
 import { appConfig } from '../config/config.js';
 import { applyTheme } from '../config/theme.js';
-import { loadLayout } from './modules/renderer.js'; // ✨ DESCOMENTADO
+import { loadLayout } from './modules/renderer.js';
+// 👇 NOVA IMPORTAÇÃO: Traz a lógica que cria os cards de imóveis
+import { loadFeaturedProperties } from './modules/properties.js'; 
 
 document.addEventListener('DOMContentLoaded', () => {
     initApp();
@@ -18,7 +20,7 @@ function initApp() {
     document.title = `${appConfig.client.name} | ${appConfig.client.slogan}`;
 
     // 3. Carrega Header e Footer (Layout Global)
-    loadLayout(); // ✨ DESCOMENTADO: Agora o menu e rodapé vão aparecer!
+    loadLayout(); 
 
     // 4. Roteamento Simples (Router)
     routeController();
@@ -30,12 +32,19 @@ function routeController() {
     if (path.includes('dashboard.html')) {
         console.log("📊 Modo Admin: A carregar CRM e Financeiro...");
         checkAuth();
+
     } else if (path.includes('property-detail.html')) {
         console.log("🏠 Modo Detalhes: A carregar galeria e simulador...");
+
     } else if (path.includes('login.html')) {
         console.log("🔐 Modo Acesso: A carregar formulário de login...");
+
     } else {
+        // Se for a Home (index.html) ou raiz
         console.log("🔍 Modo Vitrine: A carregar busca e destaques...");
+        
+        // 👇 AQUI A MÁGICA: Carrega os imóveis do banco de dados na tela
+        loadFeaturedProperties(); 
     }
 }
 
